@@ -1,0 +1,14 @@
+{
+	"manifest_version": 2,
+	"name": "Lazy",
+	"version": "0.0.2",	
+  	"content_scripts": [
+	    {
+	      	"matches": ["http://fs-uk.com/*"],	          
+	      	"js": ["jquery.js", "script.js"]
+	    }
+  	],
+  	"permissions": [
+        "storage"
+    ]
+}
