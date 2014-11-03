@@ -51,11 +51,7 @@ $(function(){
 			var lastWordCleaned = lastWord.substr(0, lastWord.length - 1);			
 
 			//We remove the white spaces and newlines
-			var lastWordTrimmed = jQuery.trim(lastWordCleaned);
-
-			console.log("lastWord (brut) :" + lastWord);
-			console.log("lastWordCleaned : " + lastWordCleaned);
-			console.log("lastWordTrimmed : " + lastWordTrimmed);
+			var lastWordTrimmed = jQuery.trim(lastWordCleaned);			
 
 			//Is it in the replace array?
 			if(replaceSnippets[lastWordTrimmed] != undefined)
