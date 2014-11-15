@@ -46,6 +46,8 @@ $(function(){
 			//We get the complete last word
 			var lastWord = content.split(" ").pop();
 			lastWord = lastWord.split("\n").pop();
+			lastWord = lastWord.split("\r").pop();
+			lastWord = lastWord.split("\r\n").pop();
 
 			//We remove the modifier, to check in the arrays (one instead of one<)
 			var lastWordCleaned = lastWord.substr(0, lastWord.length - 1);			
@@ -68,4 +70,29 @@ $(function(){
 			}
 		}
 	});	
+
+	// ======== TEST REPORTS ==========
+	// Visual feedback on the test reports item description
+
+	var select = $('.reportList select');	
+
+	select.on('change', function(){
+		switch($(this).val())
+		{
+			//Many problems
+			case "0":
+				$(this).css('color', 'red');
+				break;
+			//No problems
+			case "1":
+				$(this).css('color', 'green');
+				break;
+			//Some problems
+			case "3":
+				$(this).css('color', 'orange');
+				break;
+			default:
+				$(this).css('color', '#000');
+		}	
+	});
 });
