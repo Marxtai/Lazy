@@ -7,7 +7,12 @@ $(function(){
 			insertSnippets["img"] = "[img]linkToImage[/img]";
 			insertSnippets["code"] = "[code[i][/i]][[i][/i]/code]";
 
-			$('#post').on('keydown', function(e){
+			insertSnippets["fmod13"] = "http://fs-uk.com/forum/index.php?topic=124265.0";
+			insertSnippets["fmap13"] = "http://fs-uk.com/forum/index.php?topic=126665.0";
+			insertSnippets["fmod"] = "http://fs-uk.com/forum/index.php?topic=165712.0";
+			insertSnippets["fmap"] = "http://fs-uk.com/forum/index.php?topic=166163.0";
+
+			$('textarea').on('keydown', function(e){
 				if(e.keyCode == 9)
 				{
 					e.preventDefault();
@@ -20,13 +25,13 @@ $(function(){
 					if(insertSnippets[lastWord] != undefined)
 					{
 						var content = $(this).val();
-						content = content.replace(jQuery.trim(lastWord), insertSnippets[lastWord]);
+						content = content.replace(lastWord, insertSnippets[lastWord]);
 						$(this).val(content);
 					}
 				}
 			});
 
-			//FS-UK Test Report visual helper
+			//FS-UK testing report visual helper			
 
 			var select = $('.reportList select');	
 
