@@ -18,7 +18,10 @@ $(function(){
     snippets["u"] = "[u]someText[/u]";
 
     //Other stuff
-    snippets["one"] = "Please do not make one word posts as it's against the forum rules. We like to see more thoughts in your posts.\n\nRefer to the forum rules and guidelines : http://fs-uk.com/forum/index.php?topic=120776.0";
+    snippets["one"] = "Please do not make one word posts as it's against the forum rules. We like to see more thoughts in your posts.";
+    snippets["caps"] = "Please do not post all in caps as it's considered shouting and not appreciated.";
+    snippets["req"] = "Please do not make mod requests as it's against the forum rules.";
+    snippets["wip"] = "Please do ask for release date or updates in WIP topics, as it's against the WIP rules.";
 
     $('textarea').on('keydown', function(event){
         if(event.keyCode == 9)
