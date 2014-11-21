@@ -28,14 +28,29 @@ $(function(){
         {
             event.preventDefault();
 
+            var caret = $(this).prop('selectionStart');
             var content = $(this).val();
-            var lastWord = content.split(/\s+/).pop();                  
 
-            //Is it a snippet?
-            if(snippets[lastWord] != undefined)
-            {
-                newString = content.substring(0, content.lastIndexOf(lastWord)) + snippets[lastWord];
-                $(this).val(newString);
+            //Make sure that the last char before the charet is NOT a whitespace
+            if(content.charAt(caret - 1) != " ")
+            { 
+                //Get the last word the user typed before the caret
+                before =  content.substr(0, caret);
+                var lastWord = before.split(/\s+/).pop();
+
+                //Get the length of that lastword for later substr
+                var length = lastWord.length;             
+
+                //Split the entire content in three sections
+                var beforeReplace = content.substr(0, caret - length);
+                var afterReplace = content.substr(caret, content.length);
+
+                //Replace everything
+                if(snippets[lastWord] != undefined)
+                {
+                    var newContent = beforeReplace + snippets[lastWord] + afterReplace;
+                    $(this).val(newContent);
+                }
             }           
         }
     });
