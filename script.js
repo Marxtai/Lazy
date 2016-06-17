@@ -1,5 +1,5 @@
 $(function(){
-    var snippets = [];
+    var snippets = [];  
 
     //Links to topics
     snippets["rules"] = "http://fs-uk.com/forum/index.php?topic=120776.0";
@@ -8,20 +8,17 @@ $(function(){
     snippets["fmap"] = "http://fs-uk.com/forum/index.php?topic=166163.0";
     snippets["fmod13"] = "http://fs-uk.com/forum/index.php?topic=124265.0";
     snippets["fmap13"] = "http://fs-uk.com/forum/index.php?topic=126665.0";
+    snippets["fmod15"] = "http://fs-uk.com/forum/index.php?topic=165712.0";
+    snippets["fmap15"] = "http://fs-uk.com/forum/index.php?topic=166163.0";
 
     //BBCode shortcuts
-    snippets["img"] = "[img]linkToImage[/img]";
-    snippets["url"] = "[url=link]displayedText[/url]";
+    snippets["img"] = "[img]%[/img]";
+    snippets["url"] = "[url=link]%[/url]";
     snippets["code"] = "[code[i][/i]][[i][/i]/code]";
-    snippets["b"] = "[b]someText[/b]";
-    snippets["i"] = "[i]someText[/i]";
-    snippets["u"] = "[u]someText[/u]";
-
-    //Other stuff
-    snippets["one"] = "Please do not make one word posts as it's against the forum rules. We like to see more thoughts in your posts.";
-    snippets["caps"] = "Please do not post all in caps as it's considered shouting and not appreciated.";
-    snippets["req"] = "Please do not make mod requests as it's against the forum rules.";
-    snippets["wip"] = "Please do ask for release date or updates in WIP topics, as it's against the WIP rules.";
+    snippets["b"] = "[b]%[/b]";
+    snippets["i"] = "[i]%[/i]";
+    snippets["u"] = "[u]%[/u]";
+    snippets["f"] = "[font=Courier New]%[/font]";
 
     $('textarea').on('keydown', function(event){
         if(event.keyCode == 9)
@@ -45,18 +42,29 @@ $(function(){
                 var beforeReplace = content.substr(0, caret - length);
                 var afterReplace = content.substr(caret, content.length);
 
-                //Replace everything
-                if(snippets[lastWord] != undefined)
-                {
-                    var newContent = beforeReplace + snippets[lastWord] + afterReplace;
-                    $(this).val(newContent);
+                var snippet = snippets[lastWord];
+
+                if(snippet != undefined && typeof snippet !== 'udnefined'){                    
+
+                    var newContent = beforeReplace + snippet + afterReplace;
+                    var placeCursorAt = 0;
+
+                    if(newContent.indexOf('%') !== -1){
+                        placeCursorAt = newContent.indexOf('%');
+                        newContent = newContent.replace('%', '');
+                    }                
+
+                    $(this).val(newContent);     
+                    
+                    if(placeCursorAt > 0){
+                        $(this).selectRange(placeCursorAt);   
+                    }            
                 }
             }           
         }
     });
 
-    //FS-UK testing report visual helper            
-
+    //FS-UK testing report visual helper    
     var select = $('.reportList select');   
 
     select.on('change', function(){
@@ -78,4 +86,24 @@ $(function(){
                 $(this).css('color', '#000');
         }   
     });
+
+    $.fn.selectRange = function(start, end) {
+    if(end === undefined) {
+        end = start;
+    }
+    return this.each(function() {
+        if('selectionStart' in this) {
+            this.selectionStart = start;
+            this.selectionEnd = end;
+        } else if(this.setSelectionRange) {
+            this.setSelectionRange(start, end);
+        } else if(this.createTextRange) {
+            var range = this.createTextRange();
+            range.collapse(true);
+            range.moveEnd('character', end);
+            range.moveStart('character', start);
+            range.select();
+        }
+    });
+};
 });
