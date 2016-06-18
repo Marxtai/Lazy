@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Settings</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+</head>
+<body>
+	<div class="container">
+		<h1>Lazy</h1>
+		<p>A chrome extension for the lazily efficient people.</p>
+
+		<h2>Current snippets</h2>
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Trigger</th>
+					<th>Code</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td colspan="3">There are no snippets.</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2>Add a new snippet</h2>
+
+		<form action="#">
+			<div class="form-group">
+				<label for="trigger">Trigger</label>
+				<input type="text" name="trigger" id="trigger" class="form-control">
+			</div>
+
+			<div class="form-group">
+				<label for="code">Code</label>
+				<input type="text" name="code" id="code" class="form-control">
+			</div>
+
+			<div class="form-group">
+				<button class="btn btn-default">Add the snippet</button>
+			</div>
+		</form>
+	</div>
+
+	<script src="jquery.js"></script>
+	<script src="settings.js"></script>
+</body>
+</html>

@@ -1,24 +1,13 @@
 $(function(){
-    var snippets = [];  
+    var snippets = [];
 
-    //Links to topics
-    snippets["rules"] = "http://fs-uk.com/forum/index.php?topic=120776.0";
-    snippets["wrules"] = "http://fs-uk.com/forum/index.php?topic=98798.0";
-    snippets["fmod"] = "http://fs-uk.com/forum/index.php?topic=165712.0";
-    snippets["fmap"] = "http://fs-uk.com/forum/index.php?topic=166163.0";
-    snippets["fmod13"] = "http://fs-uk.com/forum/index.php?topic=124265.0";
-    snippets["fmap13"] = "http://fs-uk.com/forum/index.php?topic=126665.0";
-    snippets["fmod15"] = "http://fs-uk.com/forum/index.php?topic=165712.0";
-    snippets["fmap15"] = "http://fs-uk.com/forum/index.php?topic=166163.0";
+    chrome.storage.local.get('snippets', function (result) {      
+        if(typeof result.snippets === 'undefined'){
+            return;
+        }
 
-    //BBCode shortcuts
-    snippets["img"] = "[img]%[/img]";
-    snippets["url"] = "[url=link]%[/url]";
-    snippets["code"] = "[code[i][/i]][[i][/i]/code]";
-    snippets["b"] = "[b]%[/b]";
-    snippets["i"] = "[i]%[/i]";
-    snippets["u"] = "[u]%[/u]";
-    snippets["f"] = "[font=Courier New]%[/font]";
+        snippets = result.snippets;     
+    });  
 
     $('textarea').on('keydown', function(event){
         if(event.keyCode == 9)
@@ -27,26 +16,28 @@ $(function(){
 
             var caret = $(this).prop('selectionStart');
             var content = $(this).val();
-
-            //Make sure that the last char before the charet is NOT a whitespace
+           
             if(content.charAt(caret - 1) != " ")
             { 
                 //Get the last word the user typed before the caret
                 before =  content.substr(0, caret);
-                var lastWord = before.split(/\s+/).pop();
-
-                //Get the length of that lastword for later substr
-                var length = lastWord.length;             
+                var lastWord = before.split(/\s+/).pop();                         
 
                 //Split the entire content in three sections
-                var beforeReplace = content.substr(0, caret - length);
-                var afterReplace = content.substr(caret, content.length);
+                var beforeReplace = content.substr(0, caret - lastWord.length);
+                var afterReplace = content.substr(caret, content.length);            
 
-                var snippet = snippets[lastWord];
+                var snippet = null;
+
+                for(var i = 0; i < snippets.length; i++){
+                    if(snippets[i].trigger == lastWord){
+                        snippet = snippets[i];
+                    }
+                }
 
                 if(snippet != undefined && typeof snippet !== 'udnefined'){                    
 
-                    var newContent = beforeReplace + snippet + afterReplace;
+                    var newContent = beforeReplace + snippet.code + afterReplace;
                     var placeCursorAt = 0;
 
                     if(newContent.indexOf('%') !== -1){

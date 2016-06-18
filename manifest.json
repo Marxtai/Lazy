@@ -10,5 +10,6 @@
   	],
   	"permissions": [
         "storage"
-    ]
+    ],
+    "options_page": "settings.html"
 }
