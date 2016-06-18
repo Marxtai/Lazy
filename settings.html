@@ -11,6 +11,12 @@
 		<h1>Lazy</h1>
 		<p>A chrome extension for the lazily efficient people.</p>
 
+		<h2>How it works</h2>
+
+		<p>This extension will wait until the TAB key is pressed in a FS-UK textarea (forum post box, new topic box, reply box, etc).</p>
+		<p>When the key is pressed, it will look for the word right before the cursor, the <strong>trigger</strong>, and will see if it matches any entry in the table below.</p>
+		<p>If it does, the word right before the cursor gets replaced by the matching <strong>code</strong> value for that snippet.</p>
+
 		<h2>Current snippets</h2>
 
 		<table class="table table-striped">
@@ -29,6 +35,8 @@
 		</table>
 
 		<h2>Add a new snippet</h2>
+
+		<p><strong>Note : you can use the % sign in the code section to set where the cursor will be positioned when the trigger is expanded.</strong></p>
 
 		<form action="#">
 			<div class="form-group">
